@@ -1,0 +1,1178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Piyesa Booking &amp; Inquiries</title>
+    <link rel="icon" type="image/png" href="img/piyesa-logo-transparent.png">
+    <style>
+        :root {
+            --black: #000000;
+            --ink: #1b1b1b;
+            --muted: #6d6d6d;
+            --line: #d9d9d9;
+            --paper: #ffffff;
+            --soft: #f4f4f2;
+            --accent: #f15a24;
+            --accent-cool: #6d63ff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: var(--paper);
+            color: var(--ink);
+            font-family: Inter, Arial, Helvetica, sans-serif;
+            line-height: 1.45;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        button,
+        input,
+        select,
+        textarea {
+            font: inherit;
+        }
+
+        .container {
+            width: min(1120px, calc(100% - 40px));
+            margin: 0 auto;
+        }
+
+        .page-loader {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            display: grid;
+            place-items: center;
+            background: #000000;
+            animation: loaderFade 0.45s ease 1.4s forwards;
+        }
+
+        .loader-content {
+            width: min(210px, 62vw);
+            text-align: center;
+        }
+
+        .loader-badge {
+            display: grid;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto;
+            place-items: center;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.42);
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.04);
+        }
+
+        .loader-logo {
+            display: block;
+            width: 128px;
+            height: 72px;
+            object-fit: cover;
+            object-position: center 17%;
+            animation: logoPulse 1.1s ease-in-out infinite;
+        }
+
+        .loader-line {
+            height: 2px;
+            margin-top: 18px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .loader-line span {
+            display: block;
+            width: 45%;
+            height: 100%;
+            background: #ffffff;
+            animation: loaderLine 1.1s ease-in-out infinite;
+        }
+
+        .page-loader.is-hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        @keyframes loaderFade {
+            to {
+                opacity: 0;
+                visibility: hidden;
+                pointer-events: none;
+            }
+        }
+
+        @keyframes logoPulse {
+            0%,
+            100% {
+                opacity: 0.72;
+            }
+
+            50% {
+                opacity: 1;
+            }
+        }
+
+        @keyframes loaderLine {
+            0% {
+                transform: translateX(-110%);
+            }
+
+            100% {
+                transform: translateX(240%);
+            }
+        }
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 20;
+            background: var(--black);
+            color: var(--paper);
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 88px;
+            gap: 24px;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            width: 180px;
+            height: 48px;
+            overflow: hidden;
+        }
+
+        .brand-logo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center 17%;
+        }
+
+        .nav {
+            display: flex;
+            align-items: center;
+            gap: 26px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+            list-style: none;
+            color: #dcdcdc;
+            font-size: 0.82rem;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .nav-links a {
+            border-bottom: 2px solid transparent;
+        }
+
+        .nav-links a:hover {
+            border-bottom-color: var(--paper);
+        }
+
+        .menu-word {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.82rem;
+            font-weight: 500;
+            text-transform: uppercase;
+        }
+
+        .hamburger {
+            display: grid;
+            gap: 6px;
+            width: 26px;
+        }
+
+        .hamburger span {
+            display: block;
+            height: 2px;
+            border-radius: 999px;
+            background: var(--paper);
+        }
+
+        .hero {
+            position: relative;
+            display: grid;
+            min-height: calc(100vh - 88px);
+            place-items: center;
+            overflow: hidden;
+            background: var(--black);
+            color: var(--paper);
+            text-align: center;
+        }
+
+        .hero::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-image: url("img/_DSC0789.jpg");
+            background-position: center 35%;
+            background-size: cover;
+            opacity: 0.52;
+            transform: scale(1.04);
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.76)),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.58), rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.58));
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+            width: min(920px, calc(100% - 32px));
+            padding: 86px 0;
+        }
+
+        .hero-kicker {
+            margin-bottom: 22px;
+            color: #efefef;
+            font-size: 1rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .hero h1 {
+            font-size: 6.2rem;
+            font-weight: 300;
+            line-height: 0.92;
+            text-transform: uppercase;
+        }
+
+        .hero h1 strong {
+            display: block;
+            font-weight: 800;
+        }
+
+        .hero-logo {
+            display: block;
+            width: min(780px, 100%);
+            height: 220px;
+            margin: 0 auto;
+            object-fit: cover;
+            object-position: center 17%;
+            mix-blend-mode: screen;
+        }
+
+        .hero-title {
+            display: block;
+            margin-top: 8px;
+            color: #ffffff;
+            font-size: 2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .hero-copy {
+            max-width: 640px;
+            margin: 26px auto 0;
+            color: #eeeeee;
+            font-size: 1.18rem;
+        }
+
+        .hero-links {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 32px;
+            margin-top: 44px;
+        }
+
+        .hero-links a {
+            padding-bottom: 8px;
+            border-bottom: 3px solid var(--paper);
+            color: var(--paper);
+            font-size: 1.2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .hero-links a:hover {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        section {
+            padding: 90px 0;
+        }
+
+        .section-heading {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+            gap: 28px;
+            margin-bottom: 38px;
+        }
+
+        .section-heading h2 {
+            max-width: 760px;
+            color: #3b3b3b;
+            font-size: 4.6rem;
+            font-weight: 800;
+            line-height: 0.96;
+        }
+
+        .section-heading p {
+            max-width: 360px;
+            color: var(--muted);
+            font-size: 1rem;
+        }
+
+        .section-heading a,
+        .text-link {
+            color: var(--accent);
+            font-weight: 800;
+            border-bottom: 2px solid var(--accent-cool);
+        }
+
+        .intro-grid {
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 50px;
+            align-items: start;
+        }
+
+        .intro-copy {
+            color: #444444;
+            font-size: 1.15rem;
+        }
+
+        .intro-copy p + p {
+            margin-top: 18px;
+        }
+
+        .soft-section {
+            background: var(--soft);
+        }
+
+        .gig-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 18px;
+        }
+
+        .gig-card {
+            border: 3px solid var(--ink);
+            background: var(--paper);
+        }
+
+        .gig-thumb {
+            position: relative;
+            aspect-ratio: 16 / 10;
+            overflow: hidden;
+            background: var(--black);
+        }
+
+        .gig-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.88;
+            transition: transform 0.25s ease, opacity 0.25s ease;
+        }
+
+        .gig-card:hover .gig-thumb img {
+            opacity: 1;
+            transform: scale(1.04);
+        }
+
+        .gig-tag {
+            position: absolute;
+            top: 14px;
+            left: 14px;
+            padding: 7px 10px;
+            background: var(--accent);
+            color: var(--paper);
+            font-size: 0.72rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .gig-body {
+            padding: 20px;
+        }
+
+        .gig-date {
+            color: var(--accent);
+            font-size: 0.88rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .gig-body h3 {
+            margin-top: 8px;
+            font-size: 1.45rem;
+            line-height: 1.05;
+        }
+
+        .gig-body p {
+            margin-top: 10px;
+            color: var(--muted);
+        }
+
+        .media-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .media-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 40px;
+            padding: 0 14px;
+            border: 2px solid var(--black);
+            background: var(--black);
+            color: var(--paper);
+            cursor: pointer;
+            font-size: 0.78rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .media-button.secondary {
+            background: var(--paper);
+            color: var(--black);
+        }
+
+        .media-button:hover {
+            border-color: var(--accent);
+            background: var(--accent);
+            color: var(--paper);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(4, minmax(0, 1fr));
+            gap: 12px;
+        }
+
+        .service-card {
+            min-height: 245px;
+            padding: 20px;
+            border: 3px solid var(--ink);
+            background: var(--paper);
+        }
+
+        .service-card h3 {
+            margin-top: 70px;
+            font-size: 1.55rem;
+            line-height: 1;
+        }
+
+        .service-card p {
+            margin-top: 14px;
+            color: var(--muted);
+        }
+
+        .dark-section {
+            background: var(--black);
+            color: var(--paper);
+        }
+
+        .dark-section .section-heading h2,
+        .dark-section .section-heading p {
+            color: var(--paper);
+        }
+
+        .about-panel {
+            display: grid;
+            grid-template-columns: 0.9fr 1.1fr;
+            gap: 54px;
+            align-items: start;
+        }
+
+        .about-title {
+            font-size: 4.2rem;
+            font-weight: 800;
+            line-height: 0.98;
+        }
+
+        .about-copy p {
+            color: #d7d7d7;
+            font-size: 1.08rem;
+        }
+
+        .about-copy p + p {
+            margin-top: 18px;
+        }
+
+        .inquiry-grid {
+            display: grid;
+            grid-template-columns: 0.82fr 1.18fr;
+            gap: 34px;
+            align-items: start;
+        }
+
+        .contact-list {
+            display: grid;
+            gap: 22px;
+            padding-top: 4px;
+        }
+
+        .contact-list strong {
+            display: block;
+            margin-bottom: 5px;
+            font-size: 0.88rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .contact-list p {
+            color: var(--muted);
+        }
+
+        .form {
+            display: grid;
+            gap: 12px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            min-height: 52px;
+            padding: 14px 16px;
+            border: 2px solid var(--ink);
+            border-radius: 0;
+            background: var(--paper);
+            color: var(--ink);
+            outline: none;
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--accent);
+        }
+
+        .button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 52px;
+            width: fit-content;
+            padding: 0 24px;
+            border: 2px solid var(--black);
+            background: var(--black);
+            color: var(--paper);
+            cursor: pointer;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .button:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        .media-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 80;
+            display: none;
+            place-items: center;
+            padding: 28px;
+            background: rgba(0, 0, 0, 0.88);
+        }
+
+        .media-modal.is-open {
+            display: grid;
+        }
+
+        .media-dialog {
+            width: min(980px, 100%);
+            max-height: calc(100vh - 56px);
+            overflow: auto;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            background: #080808;
+            color: var(--paper);
+        }
+
+        .media-dialog-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 18px;
+            padding: 16px 18px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.16);
+        }
+
+        .media-dialog-title {
+            font-size: 1rem;
+            font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .media-close {
+            display: inline-grid;
+            width: 38px;
+            height: 38px;
+            place-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            background: transparent;
+            color: var(--paper);
+            cursor: pointer;
+            font-size: 1.35rem;
+            line-height: 1;
+        }
+
+        .media-close:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .media-frame {
+            display: grid;
+            min-height: 320px;
+            place-items: center;
+            background: #000000;
+        }
+
+        .media-frame img,
+        .media-frame video {
+            display: block;
+            width: 100%;
+            max-height: 72vh;
+            object-fit: contain;
+        }
+
+        .empty-media {
+            max-width: 520px;
+            padding: 48px 24px;
+            color: #d8d8d8;
+            text-align: center;
+        }
+
+        .empty-media strong {
+            display: block;
+            margin-bottom: 10px;
+            color: var(--paper);
+            font-size: 1.35rem;
+            text-transform: uppercase;
+        }
+
+        .footer {
+            padding: 32px 0;
+            background: var(--black);
+            color: #c8c8c8;
+            font-size: 0.9rem;
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 940px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 4.8rem;
+            }
+
+            .section-heading,
+            .intro-grid,
+            .about-panel,
+            .inquiry-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .section-heading {
+                display: grid;
+                align-items: start;
+            }
+
+            .section-heading h2,
+            .about-title {
+                font-size: 3.35rem;
+            }
+
+            .services-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .gig-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+        }
+
+        @media (max-width: 620px) {
+            .container {
+                width: min(100% - 28px, 1120px);
+            }
+
+            .header-inner {
+                min-height: 76px;
+            }
+
+            .brand {
+                width: 142px;
+                height: 40px;
+            }
+
+            .hero-logo {
+                height: 135px;
+            }
+
+            .hero-title {
+                font-size: 1.35rem;
+            }
+
+            .menu-label {
+                display: none;
+            }
+
+            .hero {
+                min-height: calc(100vh - 76px);
+            }
+
+            .hero h1 {
+                font-size: 3.25rem;
+            }
+
+            .hero-copy {
+                font-size: 1rem;
+            }
+
+            .hero-links {
+                gap: 18px;
+            }
+
+            .hero-links a {
+                width: 100%;
+                font-size: 1rem;
+            }
+
+            section {
+                padding: 64px 0;
+            }
+
+            .section-heading h2,
+            .about-title {
+                font-size: 2.45rem;
+            }
+
+            .services-grid,
+            .gig-grid,
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .service-card {
+                min-height: 190px;
+            }
+
+            .service-card h3 {
+                margin-top: 38px;
+            }
+
+            .button {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="page-loader" aria-hidden="true">
+        <div class="loader-content">
+            <div class="loader-badge">
+                <img class="loader-logo" src="img/piyesa-logo-transparent.png" alt="">
+            </div>
+            <div class="loader-line"><span></span></div>
+        </div>
+    </div>
+
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="#home" aria-label="Piyesa home">
+                <img class="brand-logo" src="img/piyesa-logo-transparent.png" alt="Piyesa">
+            </a>
+            <div class="nav">
+                <nav aria-label="Main navigation">
+                    <ul class="nav-links">
+                        <li><a href="#gigs">Gigs</a></li>
+                        <li><a href="#incoming-gigs">Incoming</a></li>
+                        <li><a href="#past-gigs">Past</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#inquiry">Inquiry</a></li>
+                    </ul>
+                </nav>
+                <a class="menu-word" href="#inquiry" aria-label="Go to inquiry form">
+                    <span class="menu-label">Menu</span>
+                    <span class="hamburger" aria-hidden="true"><span></span><span></span></span>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero" id="home">
+            <div class="hero-inner">
+                <h1>
+                    <img class="hero-logo" src="img/piyesa-logo-transparent.png" alt="Piyesa">
+                    <span class="hero-title">Band booking</span>
+                </h1>
+                <p class="hero-copy">
+                    Piyesa is a band from Oriental Mindoro, offering a fresh take on soulful covers and unique renditions.
+                </p>
+                <div class="hero-links">
+                    <a href="#inquiry">Book appointment</a>
+                    <a href="#incoming-gigs">Incoming gigs</a>
+                    <a href="#past-gigs">Past gigs</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="gigs">
+            <div class="container intro-grid">
+                <div class="section-heading">
+                    <h2>Plan your next booking.</h2>
+                </div>
+                <div class="intro-copy">
+                    <p>
+                        Use Piyesa to send your preferred date, event type, contact details,
+                        and viewing request in one clean flow.
+                    </p>
+                    <p>
+                        We keep the page focused on the details clients need first: availability,
+                        services, schedule windows, and inquiry submission.
+                    </p>
+                    <p><a class="text-link" href="#inquiry">Start an inquiry</a></p>
+                </div>
+            </div>
+        </section>
+
+        <section class="soft-section" id="incoming-gigs">
+            <div class="container">
+                <div class="section-heading">
+                    <h2>Incoming gigs</h2>
+                    <p>Upcoming schedules with quick access to photos and video previews.</p>
+                </div>
+                <div class="gig-grid">
+                    <article class="gig-card">
+                        <div class="gig-thumb">
+                            <img src="img/_DSC0789.jpg" alt="Piyesa incoming gig preview">
+                            <span class="gig-tag">Open</span>
+                        </div>
+                        <div class="gig-body">
+                            <div class="gig-date">Aug 24, 2026</div>
+                            <h3>Client Viewing Night</h3>
+                            <p>For guests and organizers who want to preview the band before booking.</p>
+                            <div class="media-actions">
+                                <button class="media-button" type="button" data-media-type="photo" data-media-src="img/_DSC0789.jpg" data-media-title="Client Viewing Night Photos">View Photos</button>
+                                <button class="media-button secondary" type="button" data-media-type="video" data-media-src="" data-media-title="Client Viewing Night Video">View Video</button>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="gig-card">
+                        <div class="gig-thumb">
+                            <img src="img/_DSC0789.jpg" alt="Piyesa private event preview">
+                            <span class="gig-tag">Limited</span>
+                        </div>
+                        <div class="gig-body">
+                            <div class="gig-date">Sep 06, 2026</div>
+                            <h3>Private Event Set</h3>
+                            <p>Acoustic and full-band options for private events and special programs.</p>
+                            <div class="media-actions">
+                                <button class="media-button" type="button" data-media-type="photo" data-media-src="img/_DSC0789.jpg" data-media-title="Private Event Set Photos">View Photos</button>
+                                <button class="media-button secondary" type="button" data-media-type="video" data-media-src="" data-media-title="Private Event Set Video">View Video</button>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="gig-card">
+                        <div class="gig-thumb">
+                            <img src="img/_DSC0789.jpg" alt="Piyesa public gig preview">
+                            <span class="gig-tag">By request</span>
+                        </div>
+                        <div class="gig-body">
+                            <div class="gig-date">Sep 21, 2026</div>
+                            <h3>Public Gig Booking</h3>
+                            <p>For venues, productions, and public-facing events looking for live music.</p>
+                            <div class="media-actions">
+                                <button class="media-button" type="button" data-media-type="photo" data-media-src="img/_DSC0789.jpg" data-media-title="Public Gig Booking Photos">View Photos</button>
+                                <button class="media-button secondary" type="button" data-media-type="video" data-media-src="" data-media-title="Public Gig Booking Video">View Video</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="past-gigs">
+            <div class="container">
+                <div class="section-heading">
+                    <h2>Past gigs</h2>
+                    <p>Browse selected moments from previous performances and client events.</p>
+                </div>
+                <div class="gig-grid">
+                    <article class="gig-card">
+                        <div class="gig-thumb">
+                            <img src="img/_DSC0789.jpg" alt="Piyesa Calapan performance">
+                            <span class="gig-tag">Photos</span>
+                        </div>
+                        <div class="gig-body">
+                            <div class="gig-date">Calapan City</div>
+                            <h3>Private Celebration</h3>
+                            <p>A soulful live set for a private gathering in Oriental Mindoro.</p>
+                            <div class="media-actions">
+                                <button class="media-button" type="button" data-media-type="photo" data-media-src="img/_DSC0789.jpg" data-media-title="Private Celebration Photos">View Photos</button>
+                                <button class="media-button secondary" type="button" data-media-type="video" data-media-src="" data-media-title="Private Celebration Video">View Video</button>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="gig-card">
+                        <div class="gig-thumb">
+                            <img src="img/_DSC0789.jpg" alt="Piyesa town event performance">
+                            <span class="gig-tag">Photos</span>
+                        </div>
+                        <div class="gig-body">
+                            <div class="gig-date">Roxas, Mindoro</div>
+                            <h3>Town Fiesta Set</h3>
+                            <p>Community event performance with crowd-favorite covers and original flavor.</p>
+                            <div class="media-actions">
+                                <button class="media-button" type="button" data-media-type="photo" data-media-src="img/_DSC0789.jpg" data-media-title="Town Fiesta Set Photos">View Photos</button>
+                                <button class="media-button secondary" type="button" data-media-type="video" data-media-src="" data-media-title="Town Fiesta Set Video">View Video</button>
+                            </div>
+                        </div>
+                    </article>
+                    <article class="gig-card">
+                        <div class="gig-thumb">
+                            <img src="img/_DSC0789.jpg" alt="Piyesa venue night performance">
+                            <span class="gig-tag">Photos</span>
+                        </div>
+                        <div class="gig-body">
+                            <div class="gig-date">Pinamalayan</div>
+                            <h3>Venue Night</h3>
+                            <p>An intimate night built around live vocals, warm arrangements, and clean sound.</p>
+                            <div class="media-actions">
+                                <button class="media-button" type="button" data-media-type="photo" data-media-src="img/_DSC0789.jpg" data-media-title="Venue Night Photos">View Photos</button>
+                                <button class="media-button secondary" type="button" data-media-type="video" data-media-src="" data-media-title="Venue Night Video">View Video</button>
+                            </div>
+                        </div>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section id="services">
+            <div class="container">
+                <div class="section-heading">
+                    <h2>Services</h2>
+                    <p><a href="#inquiry">Send details &gt;</a></p>
+                </div>
+                <div class="services-grid">
+                    <article class="service-card">
+                        <h3>Appointment Booking</h3>
+                        <p>Reserve a date and time for a consultation or meeting.</p>
+                    </article>
+                    <article class="service-card">
+                        <h3>Viewing Requests</h3>
+                        <p>Schedule a site visit, ocular, or client viewing.</p>
+                    </article>
+                    <article class="service-card">
+                        <h3>Event Inquiries</h3>
+                        <p>Send event details, guest count, location, and target date.</p>
+                    </article>
+                    <article class="service-card">
+                        <h3>Follow-up Support</h3>
+                        <p>Track pending requests and clarify next steps.</p>
+                    </article>
+                </div>
+            </div>
+        </section>
+
+        <section class="dark-section" id="about">
+            <div class="container about-panel">
+                <div>
+                    <div class="hero-kicker">About Piyesa</div>
+                    <div class="about-title">Clear schedules. Easy inquiries.</div>
+                </div>
+                <div class="about-copy">
+                    <p>
+                        Piyesa is built as a straightforward booking and viewing page for clients
+                        who need fast access to schedules, services, and inquiry details.
+                    </p>
+                    <p>
+                        The design keeps attention on the next action: choose the kind of request,
+                        share the important information, and wait for confirmation.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <section id="inquiry">
+            <div class="container">
+                <div class="section-heading">
+                    <h2>Inquiry</h2>
+                    <p>Send your request and we will review the details.</p>
+                </div>
+                <div class="inquiry-grid">
+                    <aside class="contact-list">
+                        <div>
+                            <strong>Email</strong>
+                            <p>booking@piyesa.com</p>
+                        </div>
+                        <div>
+                            <strong>Phone</strong>
+                            <p>+63 900 000 0000</p>
+                        </div>
+                        <div>
+                            <strong>Office hours</strong>
+                            <p>Monday to Saturday, 9:00 AM to 6:00 PM</p>
+                        </div>
+                    </aside>
+                    <form class="form" action="#" method="post">
+                        <div class="form-row">
+                            <input type="text" name="name" placeholder="Full name" required>
+                            <input type="email" name="email" placeholder="Email address" required>
+                        </div>
+                        <div class="form-row">
+                            <input type="tel" name="phone" placeholder="Phone number">
+                            <select name="request-type" required>
+                                <option value="">Request type</option>
+                                <option>Appointment booking</option>
+                                <option>Viewing request</option>
+                                <option>Event inquiry</option>
+                                <option>Other service</option>
+                            </select>
+                        </div>
+                        <textarea name="message" placeholder="Preferred date, location, and request details" required></textarea>
+                        <button class="button" type="submit">Submit inquiry</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div class="media-modal" id="media-modal" aria-hidden="true">
+        <div class="media-dialog" role="dialog" aria-modal="true" aria-labelledby="media-title">
+            <div class="media-dialog-head">
+                <div class="media-dialog-title" id="media-title">Gig Media</div>
+                <button class="media-close" type="button" aria-label="Close media viewer">&times;</button>
+            </div>
+            <div class="media-frame" id="media-frame"></div>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <div class="container footer-inner">
+            <p>2026 Piyesa Booking &amp; Inquiries</p>
+            <p>Gigs / Incoming Gigs / Past Gigs / Services / About / Inquiry</p>
+        </div>
+    </footer>
+
+    <script>
+        const loader = document.querySelector(".page-loader");
+        const modal = document.querySelector("#media-modal");
+        const mediaTitle = document.querySelector("#media-title");
+        const mediaFrame = document.querySelector("#media-frame");
+        const closeButton = document.querySelector(".media-close");
+
+        window.addEventListener("load", () => {
+            window.setTimeout(() => loader?.classList.add("is-hidden"), 450);
+        });
+
+        document.querySelectorAll(".media-button").forEach((button) => {
+            button.addEventListener("click", () => {
+                const type = button.dataset.mediaType;
+                const src = button.dataset.mediaSrc;
+                const title = button.dataset.mediaTitle || "Gig Media";
+
+                mediaTitle.textContent = title;
+                mediaFrame.innerHTML = "";
+
+                if (type === "photo" && src) {
+                    const image = document.createElement("img");
+                    image.src = src;
+                    image.alt = title;
+                    mediaFrame.appendChild(image);
+                } else if (type === "video" && src) {
+                    const video = document.createElement("video");
+                    video.src = src;
+                    video.controls = true;
+                    video.autoplay = true;
+                    video.playsInline = true;
+                    mediaFrame.appendChild(video);
+                } else {
+                    mediaFrame.innerHTML = `
+                        <div class="empty-media">
+                            <strong>Video coming soon</strong>
+                            <p>Add an MP4 file inside the img folder, then place its path in this gig button's data-media-src.</p>
+                        </div>
+                    `;
+                }
+
+                modal.classList.add("is-open");
+                modal.setAttribute("aria-hidden", "false");
+            });
+        });
+
+        function closeMedia() {
+            modal.classList.remove("is-open");
+            modal.setAttribute("aria-hidden", "true");
+            mediaFrame.innerHTML = "";
+        }
+
+        closeButton.addEventListener("click", closeMedia);
+        modal.addEventListener("click", (event) => {
+            if (event.target === modal) {
+                closeMedia();
+            }
+        });
+        document.addEventListener("keydown", (event) => {
+            if (event.key === "Escape" && modal.classList.contains("is-open")) {
+                closeMedia();
+            }
+        });
+    </script>
+</body>
+</html>
