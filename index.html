@@ -162,8 +162,8 @@
         }
 
         .brand-logo {
-            width: 100%;
-            height: 100%;
+            width: 80%;
+            height: 80%;
             object-fit: cover;
             object-position: center 17%;
         }
@@ -203,18 +203,20 @@
         }
 
         .hamburger {
-            display: grid;
-            gap: 6px;
-            width: 26px;
-        }
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 25px;
+    height: 18px;
+}
 
-        .hamburger span {
-            display: block;
-            height: 2px;
-            border-radius: 999px;
-            background: var(--paper);
-        }
-
+.hamburger span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background: #ffffff;
+    border-radius: 2px;
+}
         .hero {
             position: relative;
             display: grid;
@@ -849,7 +851,11 @@
                 </nav>
                 <a class="menu-word" href="#inquiry" aria-label="Go to inquiry form">
                     <span class="menu-label">Menu</span>
-                    <span class="hamburger" aria-hidden="true"><span></span><span></span></span>
+                    <span class="hamburger" aria-hidden="true">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </span>
                 </a>
             </div>
         </div>
@@ -860,7 +866,6 @@
             <div class="hero-inner">
                 <h1>
                     <img class="hero-logo" src="img/piyesa-logo-transparent.png" alt="Piyesa">
-                    <span class="hero-title">Band booking</span>
                 </h1>
                 <p class="hero-copy">
                     Piyesa is a band from Oriental Mindoro, offering a fresh take on soulful covers and unique renditions.
