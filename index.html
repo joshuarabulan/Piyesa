@@ -139,21 +139,21 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            min-height: 88px;
+            min-height: 76px;
             gap: 24px;
         }
 
         .brand {
             display: inline-flex;
             align-items: center;
-            width: 180px;
-            height: 48px;
+            width: 164px;
+            height: 38px;
             overflow: hidden;
         }
 
         .brand-logo {
-            width: 80%;
-            height: 80%;
+            width: 100%;
+            height: 100%;
             object-fit: cover;
             object-position: center 17%;
         }
@@ -260,6 +260,7 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
+            min-height: 38px;
             font-size: 0.82rem;
             font-weight: 500;
             text-transform: uppercase;
@@ -423,8 +424,8 @@
         .hero {
             position: relative;
             display: grid;
-            min-height: calc(100vh - 88px);
-            align-items: start;
+            min-height: calc(100vh - 76px);
+            align-items: end;
             justify-items: center;
             overflow: hidden;
             background: var(--black);
@@ -436,11 +437,12 @@
             content: "";
             position: absolute;
             inset: 0;
-            background-image: url("img/_DSC0789.jpg");
+            background-image: url("img/image.png");
             background-position: center 4%;
             background-size: cover;
-            opacity: 0.65;
+            opacity: 0.9;
             transform: scale(1.04);
+            z-index: 2;
         }
 
         .hero::after {
@@ -448,15 +450,32 @@
             position: absolute;
             inset: 0;
             background:
-                linear-gradient(rgba(0, 0, 0, 0.35), rgba(0, 0, 0, 0.6)),
-                linear-gradient(90deg, rgba(0, 0, 0, 0.44), rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.44));
+                linear-gradient(rgba(0, 0, 0, 0.16), rgba(0, 0, 0, 0.74)),
+                linear-gradient(90deg, rgba(0, 0, 0, 0.36), rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.36));
+            z-index: 3;
+        }
+
+        .hero-bg-logo {
+            position: absolute;
+            z-index: 1;
+            top: 8%;
+            left: 50%;
+            width: min(900px, 82vw);
+            height: 280px;
+            object-fit: contain;
+            object-position: center;
+            opacity: 0.46;
+            transform: translateX(-50%);
+            filter: blur(0.2px);
+            pointer-events: none;
+            user-select: none;
         }
 
         .hero-inner {
             position: relative;
-            z-index: 1;
+            z-index: 4;
             width: min(920px, calc(100% - 32px));
-            padding: 16px 0 48px;
+            padding: 0 0 58px;
         }
 
         .hero-kicker {
@@ -467,42 +486,12 @@
             text-transform: uppercase;
         }
 
-        .hero h1 {
-            font-size: 6.2rem;
-            font-weight: 300;
-            line-height: 0.92;
-            text-transform: uppercase;
-        }
-
-        .hero h1 strong {
-            display: block;
-            font-weight: 800;
-        }
-
-        .hero-logo {
-            display: block;
-            width: min(780px, 100%);
-            height: 300px;
-            margin: 0 auto;
-            object-fit: contain;
-            object-position: center top;
-            mix-blend-mode: screen;
-        }
-
-        .hero-title {
-            display: block;
-            margin-top: 8px;
-            color: #ffffff;
-            font-size: 2rem;
-            font-weight: 800;
-            text-transform: uppercase;
-        }
-
         .hero-copy {
             max-width: 640px;
-            margin: 100px auto 0;
+            margin: 0 auto;
             color: #eeeeee;
-            font-size: 1.35rem;
+            font-size: 1.48rem;
+            text-shadow: 0 2px 18px rgba(0, 0, 0, 0.65);
         }
 
         .hero-links {
@@ -510,14 +499,14 @@
             flex-wrap: wrap;
             justify-content: center;
             gap: 32px;
-            margin-top: 48px;
+            margin-top: 34px;
         }
 
         .hero-links a {
             padding-bottom: 8px;
             border-bottom: 3px solid var(--paper);
             color: var(--paper);
-            font-size: 1.45rem;
+            font-size: 1.56rem;
             font-weight: 800;
             text-transform: uppercase;
             transition: color 0.2s ease, border-bottom-color 0.2s ease;
@@ -593,6 +582,12 @@
             background: var(--paper);
         }
 
+        .gig-card.featured {
+            display: grid;
+            grid-column: 1 / -1;
+            grid-template-columns: 1.08fr 0.92fr;
+        }
+
         .gig-thumb {
             position: relative;
             aspect-ratio: 16 / 10;
@@ -622,6 +617,18 @@
             color: var(--paper);
             font-size: 0.72rem;
             font-weight: 800;
+            text-transform: uppercase;
+        }
+
+        .gig-count {
+            position: absolute;
+            right: 14px;
+            bottom: 14px;
+            padding: 7px 10px;
+            background: rgba(0, 0, 0, 0.72);
+            color: var(--paper);
+            font-size: 0.72rem;
+            font-weight: 700;
             text-transform: uppercase;
         }
 
@@ -888,6 +895,83 @@
             object-fit: contain;
         }
 
+        .gallery-view {
+            display: grid;
+            width: 100%;
+            gap: 12px;
+            padding: 14px;
+            background: #000000;
+        }
+
+        .gallery-main {
+            width: 100%;
+            max-height: 68vh;
+            object-fit: contain;
+            background: #000000;
+        }
+
+        .gallery-tools {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 14px;
+            color: #d8d8d8;
+            font-size: 0.82rem;
+            text-transform: uppercase;
+        }
+
+        .gallery-nav {
+            display: flex;
+            gap: 8px;
+        }
+
+        .gallery-nav button,
+        .gallery-thumb {
+            border: 1px solid rgba(255, 255, 255, 0.24);
+            background: rgba(255, 255, 255, 0.06);
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        .gallery-nav button {
+            min-height: 36px;
+            padding: 0 14px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .gallery-nav button:hover,
+        .gallery-thumb.is-active {
+            border-color: var(--accent);
+        }
+
+        .gallery-thumbs {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(74px, 1fr));
+            gap: 8px;
+            max-height: 150px;
+            overflow: auto;
+        }
+
+        .gallery-thumb {
+            aspect-ratio: 1 / 1;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        .gallery-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.72;
+        }
+
+        .gallery-thumb.is-active img,
+        .gallery-thumb:hover img {
+            opacity: 1;
+        }
+
         .empty-media {
             max-width: 520px;
             padding: 48px 24px;
@@ -904,7 +988,7 @@
         }
 
         .footer {
-            padding: 32px 0;
+            padding: 40px 0;
             background: var(--black);
             color: #c8c8c8;
             font-size: 0.9rem;
@@ -912,9 +996,30 @@
 
         .footer-inner {
             display: flex;
+            align-items: center;
             justify-content: space-between;
             gap: 20px;
             flex-wrap: wrap;
+        }
+
+        .footer-social {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            list-style: none;
+        }
+
+        .footer-social a {
+            color: #ffffff;
+            font-size: 0.82rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.34);
+        }
+
+        .footer-social a:hover {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
         }
 
         /* ── Responsive ── */
@@ -951,6 +1056,10 @@
             .gig-grid {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
+
+            .gig-card.featured {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 620px) {
@@ -975,15 +1084,11 @@
                 padding: 10px 0 40px;
             }
 
-            .hero-logo {
-                height: auto;
-                max-height: 200px;
-                width: auto;
-                max-width: 96%;
-            }
-
-            .hero-title {
-                font-size: 1.35rem;
+            .hero-bg-logo {
+                top: 12%;
+                width: 108vw;
+                height: 180px;
+                opacity: 0.34;
             }
 
             .menu-label {
@@ -995,7 +1100,7 @@
             }
 
             .hero-copy {
-                font-size: 1.2rem;
+                font-size: 1.28rem;
                 margin-top: 80px;
             }
 
@@ -1007,7 +1112,7 @@
             }
 
             .hero-links a {
-                font-size: 1.15rem;
+                font-size: 1.22rem;
                 width: fit-content;
             }
 
@@ -1024,6 +1129,10 @@
             .gig-grid,
             .form-row {
                 grid-template-columns: 1fr;
+            }
+
+            .gig-card.featured {
+                grid-column: 1;
             }
 
             .service-card {
@@ -1070,7 +1179,7 @@
                             <ul class="nav-dropdown">
                                 <li><a href="#gigs">Performances</a></li>
                                 <li><a href="#incoming-gigs">Upcoming Gigs</a></li>
-                                <li><a href="#past-gigs">Past Gigs</a></li>
+                                <li><a href="#recent-gigs">Recent Gigs</a></li>
                             </ul>
                         </li>
                         <li>
@@ -1114,7 +1223,7 @@
                 <ul class="mobile-sub-list">
                     <li><a href="#gigs">Performances</a></li>
                     <li><a href="#incoming-gigs">Upcoming Gigs</a></li>
-                    <li><a href="#past-gigs">Past Gigs</a></li>
+                    <li><a href="#recent-gigs">Recent Gigs</a></li>
                 </ul>
             </li>
             <li>
@@ -1128,17 +1237,15 @@
 
     <main>
         <section class="hero" id="home">
+            <img class="hero-bg-logo" src="img/piyesa-logo-transparent.png" alt="">
             <div class="hero-inner">
-                <h1>
-                    <img class="hero-logo" src="img/piyesa-logo-transparent.png" alt="Piyesa">
-                </h1>
                 <p class="hero-copy">
                     Piyesa is a band from Oriental Mindoro, offering a fresh take on soulful covers and unique renditions.
                 </p>
                 <div class="hero-links">
                     <a href="#inquiry">Book appointment</a>
                     <a href="#incoming-gigs">Incoming gigs</a>
-                    <a href="#past-gigs">Past gigs</a>
+                    <a href="#recent-gigs">Recent Gigs</a>
                 </div>
             </div>
         </section>
@@ -1218,55 +1325,26 @@
             </div>
         </section>
 
-        <section id="past-gigs">
+        <section id="recent-gigs">
             <div class="container">
                 <div class="section-heading">
-                    <h2>Past gigs</h2>
-                    <p>Browse selected moments from previous performances and client events.</p>
+                    <h2>Recent Gigs</h2>
+                    <p>Browse selected moments from recent performances and event highlights.</p>
                 </div>
                 <div class="gig-grid">
-                    <article class="gig-card">
+                    <article class="gig-card featured">
                         <div class="gig-thumb">
-                            <img src="img/_DSC0789.jpg" alt="Piyesa Calapan performance">
-                            <span class="gig-tag">Photos</span>
+                            <img src="img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/stage.jpg" alt="Piyesa at the 75th Founding Anniversary of Oriental Mindoro">
+                            <span class="gig-tag">75th Founding Anniversary of Oriental Mindoro</span>
+                            <span class="gig-count">40 photos</span>
                         </div>
                         <div class="gig-body">
-                            <div class="gig-date">Calapan City</div>
-                            <h3>Private Celebration</h3>
-                            <p>A soulful live set for a private gathering in Oriental Mindoro.</p>
+                            <div class="gig-date">Nov 15, 2025</div>
+                            <h3>75th Founding Anniversary of Oriental Mindoro</h3>
+                            <p>Synced gallery from the event folder featuring stage moments, crowd shots, and band highlights.</p>
                             <div class="media-actions">
-                                <button class="media-button" type="button" data-media-type="photo" data-media-src="img/_DSC0789.jpg" data-media-title="Private Celebration Photos">View Photos</button>
-                                <button class="media-button secondary" type="button" data-media-type="video" data-media-src="" data-media-title="Private Celebration Video">View Video</button>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="gig-card">
-                        <div class="gig-thumb">
-                            <img src="img/_DSC0789.jpg" alt="Piyesa town event performance">
-                            <span class="gig-tag">Photos</span>
-                        </div>
-                        <div class="gig-body">
-                            <div class="gig-date">Roxas, Mindoro</div>
-                            <h3>Town Fiesta Set</h3>
-                            <p>Community event performance with crowd-favorite covers and original flavor.</p>
-                            <div class="media-actions">
-                                <button class="media-button" type="button" data-media-type="photo" data-media-src="img/_DSC0789.jpg" data-media-title="Town Fiesta Set Photos">View Photos</button>
-                                <button class="media-button secondary" type="button" data-media-type="video" data-media-src="" data-media-title="Town Fiesta Set Video">View Video</button>
-                            </div>
-                        </div>
-                    </article>
-                    <article class="gig-card">
-                        <div class="gig-thumb">
-                            <img src="img/_DSC0789.jpg" alt="Piyesa venue night performance">
-                            <span class="gig-tag">Photos</span>
-                        </div>
-                        <div class="gig-body">
-                            <div class="gig-date">Pinamalayan</div>
-                            <h3>Venue Night</h3>
-                            <p>An intimate night built around live vocals, warm arrangements, and clean sound.</p>
-                            <div class="media-actions">
-                                <button class="media-button" type="button" data-media-type="photo" data-media-src="img/_DSC0789.jpg" data-media-title="Venue Night Photos">View Photos</button>
-                                <button class="media-button secondary" type="button" data-media-type="video" data-media-src="" data-media-title="Venue Night Video">View Video</button>
+                                <button class="media-button" type="button" data-media-type="gallery" data-gallery-id="anniversary75" data-media-title="75th Founding Anniversary Photos">View Photos</button>
+                                <button class="media-button secondary" type="button" data-media-type="video" data-media-src="" data-media-title="75th Founding Anniversary Video">View Video</button>
                             </div>
                         </div>
                     </article>
@@ -1376,8 +1454,13 @@
 
     <footer class="footer">
         <div class="container footer-inner">
-            <p>2026 Piyesa Booking &amp; Inquiries</p>
-            <p>What We Offer / Gigs &amp; Shows / Who We Are / Inquiries</p>
+            <p>Piyesa 2026</p>
+            <ul class="footer-social" aria-label="Social media links">
+                <li><a href="https://www.facebook.com/piyesa" target="_blank" rel="noopener">Facebook</a></li>
+                <li><a href="https://www.instagram.com/piyesaband" target="_blank" rel="noopener">Instagram</a></li>
+                <li><a href="https://www.tiktok.com/@piyesaband" target="_blank" rel="noopener">TikTok</a></li>
+                <li><a href="https://www.youtube.com/" target="_blank" rel="noopener">YouTube</a></li>
+            </ul>
         </div>
     </footer>
 
@@ -1452,17 +1535,118 @@
         const mediaTitle = document.querySelector("#media-title");
         const mediaFrame = document.querySelector("#media-frame");
         const closeButton = document.querySelector(".media-close");
+        const galleries = {
+            anniversary75: [
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/_DSC0789.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/_DSC0927.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/band%201.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/band%2010.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/band%2011.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/band%20115.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/band%2012.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/band%2013.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/band%2014.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/band%2015.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/band%2016.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/band%202.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/band%203.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/band%204.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/band%205.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/band%206.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/band%207.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/band%208.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/band%209.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/band.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/crister%201.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/crowd.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/howard%201.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/howard%202.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/howard%203.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/howard%204.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/josh%201.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/nathan%201.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/pam%201.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/pam%202.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/pam%203.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/pam%204.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/pam%205.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/rence%201.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/rence%202.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/rence%203.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/rence%204.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/stage%202.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/stage%203.jpg",
+                "img/75th%20Founding%20Anniversary%20of%20Oriental%20Mindoro/Nov%2015%202025/stage.jpg"
+            ]
+        };
+
+        function renderGallery(items, title) {
+            let currentIndex = 0;
+            const view = document.createElement("div");
+            const mainImage = document.createElement("img");
+            const tools = document.createElement("div");
+            const counter = document.createElement("span");
+            const nav = document.createElement("div");
+            const previous = document.createElement("button");
+            const next = document.createElement("button");
+            const thumbs = document.createElement("div");
+
+            view.className = "gallery-view";
+            mainImage.className = "gallery-main";
+            tools.className = "gallery-tools";
+            nav.className = "gallery-nav";
+            thumbs.className = "gallery-thumbs";
+            previous.type = "button";
+            next.type = "button";
+            previous.textContent = "Prev";
+            next.textContent = "Next";
+
+            function updateGallery(index) {
+                currentIndex = (index + items.length) % items.length;
+                mainImage.src = items[currentIndex];
+                mainImage.alt = `${title} ${currentIndex + 1}`;
+                counter.textContent = `${currentIndex + 1} / ${items.length}`;
+
+                thumbs.querySelectorAll(".gallery-thumb").forEach((thumb, thumbIndex) => {
+                    thumb.classList.toggle("is-active", thumbIndex === currentIndex);
+                });
+            }
+
+            previous.addEventListener("click", () => updateGallery(currentIndex - 1));
+            next.addEventListener("click", () => updateGallery(currentIndex + 1));
+
+            items.forEach((src, index) => {
+                const thumb = document.createElement("button");
+                const thumbImage = document.createElement("img");
+                thumb.type = "button";
+                thumb.className = "gallery-thumb";
+                thumbImage.src = src;
+                thumbImage.alt = `${title} thumbnail ${index + 1}`;
+                thumb.addEventListener("click", () => updateGallery(index));
+                thumb.appendChild(thumbImage);
+                thumbs.appendChild(thumb);
+            });
+
+            nav.append(previous, next);
+            tools.append(counter, nav);
+            view.append(mainImage, tools, thumbs);
+            mediaFrame.appendChild(view);
+            updateGallery(0);
+        }
 
         document.querySelectorAll(".media-button").forEach((button) => {
             button.addEventListener("click", () => {
                 const type = button.dataset.mediaType;
                 const src = button.dataset.mediaSrc;
+                const gallery = galleries[button.dataset.galleryId];
                 const title = button.dataset.mediaTitle || "Gig Media";
 
                 mediaTitle.textContent = title;
                 mediaFrame.innerHTML = "";
 
-                if (type === "photo" && src) {
+                if (type === "gallery" && gallery?.length) {
+                    renderGallery(gallery, title);
+                } else if (type === "photo" && src) {
                     const image = document.createElement("img");
                     image.src = src;
                     image.alt = title;
